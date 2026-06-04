@@ -254,7 +254,7 @@ May 5, 08:06:45 PM: 60392751 INFO   🔐 [SERVER ADMIN AUTH] Processing GET /adm
 ### URL Slug Collisions
 * **The Setup:** Artists frequently title physical pieces *"Untitled"*. 
 * **The DB Conflict:** The schema enforced a unique database constraint on the URL slug generated from the artwork's title. Submitting multiple 'untitled' pieces, for example caused upload failures.
-* **The Pivot:** Wrote a clean regex method to catch duplicates and cleanly append a sequential 3-digit counter to the unique path string.
+* **The Pivot:** Wrote a function with RegEx to catch duplicates and cleanly append a sequential 2-digit counter to the unique path string.
 
 ---
 
@@ -286,7 +286,8 @@ async function generateUniqueSlug(baseSlug: string): Promise<string> {
     // Generate next counter
     const nextCounter = maxCounter + 1
     if (nextCounter > 99) {
-      throw createError({ statusCode: 400, statusMessage: 'Unable to generate unique slug (too many duplicates)' })
+      throw createError({ statusCode: 400, 
+      statusMessage: 'Unable to generate unique slug (too many duplicates)' })
     }
 
     return `${baseSlug}_${String(nextCounter).padStart(2, '0')}`
@@ -390,9 +391,9 @@ Using **GitHub Copilot Workspace** with agent model **Claude Haiku 4.5**.
 * **Argon2 makes generates different hashes in different environments** (Local vs. Netlify server). A hash generated locally would not match one generated on Netlify. Solution: generate from with a one-time-use API that is approrpiate for a single-admin app like this.
 * **My trio of goals were met in this project:**
   1. Get the feel of Nuxt
-  2. Build a responsive, minimal and easy to use portfolio app for an artist that also fits in an artists' budget ($30/yr for domain name, rest on free levels, immediate loads).
+  2. Build a responsive, minimal and easy to use portfolio app for an artist that also fits in an artists' budget ($30/yr for domain name, rest on free levels, immediate loads) for an artist.
   3. In the end, have a portfolio item to share.
-* Note: Squarespace is a fine solution for manypeople and businesses, but as an engineer, this is more fun.
+* Note: Squarespace is a fine solution for many people and businesses, but as an engineer, this is more fun.
 ---
 
 # 6. Post Script
@@ -416,7 +417,7 @@ Code: [github.com/ngolebiewski/ryan-hill-studio-v2/](https://github.com/ngolebie
 <div class="split-25-75">
 <div class="col-left">
 
-# Thank you & Questions
+# Thank you & Questions?
 
 **Nick Golebiewski**
 

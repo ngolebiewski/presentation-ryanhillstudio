@@ -380,7 +380,14 @@ async (newUrl) => {
 
 Used Github AI Copilot with agents using Claude Haiku 4.5. At that time could generate a Codepsace right from the Github Issue and worked on a branch. Was really efficient with tokens. Like remarkably so compared to VS Code on my desktop. Spent time writing detailed issues. All free level. 
 
-Could use more,
+Could use more:
+Claude Code, to make fast. Eventually did copy and paste AI use with free token model.
+Write tests
+security tests
+Agent iterate on issues and create pull requests put in review loop
+
+Agenda: Set up local Ollama instance running Qwen Coder 2.5 on Raspberry Pi 5 with AI Hat on VPN setup with Tailscale. 
+
 
 ---
 
