@@ -31,11 +31,12 @@ jobs:
       - name: Copy Images to Build Folder
         run: cp -r images build/
 
+      # Uses the verified community action path
       - name: Build Marp Slides
-        uses: marp-team/marp-cli-action@v1.2
+        uses: KoharaKazuya/marp-cli-action@v4
         with:
           # Added --allow-local-files so Marp can read your images during the build
-          args: ryanhill_pinterest_copy.md -o build/index.html --html --bespoke.osc=false --allow-local-files
+          args: ryanhill_pinterest_presentation.md -o build/index.html --html --bespoke.osc=false --allow-local-files
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
