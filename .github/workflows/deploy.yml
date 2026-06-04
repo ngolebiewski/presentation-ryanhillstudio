@@ -17,10 +17,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Build Marp Slides
-        uses: docker://marpteam/marp-cli:latest
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          args: ryanhill_pinterest_presentation.md -o dist/index.html --html --allow-local-files
+          node-version: '18'
+
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Build Slides
+        run: marp ryanhill_pinterest_presentation.md -o dist/index.html --html --allow-local-files
 
       - name: Copy Images and CSS
         run: |
