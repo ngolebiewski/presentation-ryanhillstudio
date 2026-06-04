@@ -3,49 +3,30 @@ name: Deploy Marp Slides to GitHub Pages
 on:
   push:
     branches:
-      - main # Change to 'master' if your default branch uses that name
+      - main # Change to 'master' if your default branch is named 'master'
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Create Build Directory
-        run: mkdir build
-
-      # Copies your images folder so they are published alongside the HTML
-      - name: Copy Images to Build Folder
-        run: cp -r images build/
-
-      # Uses the verified community action path
+      # The action automatically compiles and packages everything into an upload folder
       - name: Build Marp Slides
         uses: KoharaKazuya/marp-cli-action@v4
         with:
-          # Added --allow-local-files so Marp can read your images during the build
-          args: ryanhill_pinterest_presentation.md -o build/index.html --html --bespoke.osc=false --allow-local-files
-          
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+          args: ryanhill_pinterest_presentation.md -o index.html --html --bespoke.osc=false --allow-local-files
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build'
+          path: .marp-cli-action # This is the hidden folder the action naturally creates
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
