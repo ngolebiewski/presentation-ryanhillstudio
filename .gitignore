@@ -1,2 +1,4 @@
 .DS_Store
 .env
+/pdf_archive
+index.html

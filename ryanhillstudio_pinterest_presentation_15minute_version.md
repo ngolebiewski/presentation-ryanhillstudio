@@ -77,22 +77,46 @@ June 12, 2026
 
 ---
 
-**Frontend:** *Nuxt (Vue)* + *Tailwind CSS* + *TypeScript*
-- SSR for fast loads and SEO optimization
-- Semantic routing for artwork galleries and static pages
+# Frontend Stack
 
-**Backend:** *Node.js* + *PostgreSQL* + *Argon2*
-- Unified codebase with Nuxt
-- Lightweight auth (Argon2) for single-admin scope
-
-**Infrastructure:** *Netlif*y + *Neon* + *GitHub*
-- Netlify: CI/CD, Edge Functions, Blobs for image uploads, deploy previews on PRs
-- Neon: Serverless PostgreSQL
-- GitHub: Version control, Issues, and *CoPilot*
+- **Nuxt (Vue)**
+  - **SSR (Server-Side Rendering):** Fast initial load times and optimized SEO for imagery, better for SEO.
+  - **Semantic Routing:** Dynamic routes for artwork and series names, hardcoded routes for known static pages (CV, About, Contact).
+  - **Learning Focus:** Wanted to gain deep experience with a modern alternative to React frameworks.
+- **Tailwind CSS**
+  - Fast, modular, inline responsive styling.
+- **TypeScript**
+  - Industry standard: static type-safety across the application.
 
 ---
 
-# 2. Website Demo
+# Backend Stack
+
+- **Node.js**
+  - Keeps the codebase self-contained and unified natively alongside Nuxt.
+- **PostgreSQL**
+  - Powerful, open-source relational database. 
+  - API routes written as escaped SQL (Go style), no need for heavy ORM.
+- **Argon2 Hashing**
+  - Secure, memory-hardened cryptographic password hashing. Chosen over heavy OAuth2 configurations to fit a lightweight, single-admin app scope perfectly.
+
+---
+
+# DevOps & Infrastructure
+
+- **Netlify**
+  - Netlify Blobs for fast structured image asset uploads.
+  - Edge Serverless Functions for API architecture.
+  - Automated CI/CD pipeline pulling directly from GitHub.
+  - Rapid asset delivery via customized DNS cache configuration.
+- **Neon**
+  - Serverless PostgreSQL hosting featuring frictionless pairing with Netlify.
+- **GitHub**
+  - Version control, live Netlify deploy previews on Pull Requests, and milestone issue tracking.
+
+---
+
+# 2. Demo
 
 ---
 
@@ -162,7 +186,7 @@ Vertical Flow
 <div class="split-25-75">
 <div class="col-left">
 
-## Database Schema/ERD
+# Database Schema
 
 </div>
 <div class="col-right">
@@ -178,16 +202,16 @@ Vertical Flow
 
 ---
 
-<!-- # Challenges: Hydration & State
+# Challenges: Hydration & State
 
 ### Flickering Authentication
 * **The Bug:** Admin users logging in successfully, only to be immediately booted out to the login screen on page refresh.
 * **The Cause:** A classic Nuxt hydration mismatch between the server-side render state and client-side cookie validation execution. Caused by client side auth middleware conflicting with server side middleware
 * **Coincidence?** Nuxt seems to have a 'persistent user issue', something similar happened in a Nuxt/Go project using Zitadel for OAuth and user login.
 
---- -->
+---
 
-# *"I'm not able to upload images anymore, it says to check the console for logs."* - User
+# *"I'm not able to upload images, it says to check the console for logs."* - User
 ---
 ## 'Boom', that's it!
 
@@ -292,7 +316,7 @@ async function generateUniqueSlug(baseSlug: string): Promise<string> {
 
 ---
 
-<!-- # Challenges:Video Streams
+# Challenges:Video Streams
 
 ### 4. YouTube & Shorts Integration
 * **The Goal:** Seamlessly render video streaming feeds and auto-extract high-quality cover thumbnails directly from video links inside the artwork submission forms. YouTube is great at streaming video and embeds, the artist already had a bunch uploaded, so that became the plan.
@@ -331,7 +355,7 @@ async (newUrl) => {
       }...
 
 ```
---- -->
+---
 
 # 4. AI Use
 
@@ -364,18 +388,32 @@ Using **GitHub Copilot Workspace** with agent model **Claude Haiku 4.5**.
 
 ---
 
-- **Argon2 makes generates different hashes in different environments** 
+* **Argon2 makes generates different hashes in different environments** (Local vs. Netlify server). A hash generated locally would not match one generated on Netlify. Solution: generate from with a one-time-use API that is approrpiate for a single-admin app like this.
 * **My trio of goals were met in this project:**
-  * 1. Get the feel of Nuxt
-  * 2. Build a responsive, minimal and easy to use portfolio app for an artist that also fits in an artists' budget ($30/yr for domain name, rest on free levels, immediate loads) for an artist.
-  * 3. In the end, have a portfolio item to share.
-<!-- * Note: Squarespace is a fine solution for many people and businesses, but as an engineer, this is more fun. -->
+  1. Get the feel of Nuxt
+  2. Build a responsive, minimal and easy to use portfolio app for an artist that also fits in an artists' budget ($30/yr for domain name, rest on free levels, immediate loads) for an artist.
+  3. In the end, have a portfolio item to share.
+* Note: Squarespace is a fine solution for many people and businesses, but as an engineer, this is more fun.
 ---
 
 # 6. Post Script
 
 ---
 
+<!-- 
+![bg contain](images/threads-happy-client.jpg)
+
+---
+
+# Thank you & Questions?
+
+**Nick Golebiewski**
+Site: [ryanhill.studio](https://ryanhill.studio/)
+Code: [github.com/ngolebiewski/ryan-hill-studio-v2/](https://github.com/ngolebiewski/ryan-hill-studio-v2/)
+
+--- -->
+
+<!-- Mobile View Split Layout -->
 <div class="split-25-75">
 <div class="col-left">
 
