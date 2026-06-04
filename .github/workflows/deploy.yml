@@ -26,7 +26,7 @@ jobs:
         run: npm install -g @marp-team/marp-cli
 
       - name: Build Slides
-        run: marp ryanhill_pinterest_presentation.md -o dist/index.html --html --allow-local-files
+        run: marp ryanhillstudio_pinterest_presentation.md -o dist/index.html --html --allow-local-files
 
       - name: Copy Images and CSS
         run: |
