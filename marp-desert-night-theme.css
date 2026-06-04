@@ -1,0 +1,144 @@
+/* Inspiration: Techbase Color Scheme */
+/* Source: https://github.com/mcauley-penney/techbase.nvim/blob/main/lua/techbase/palettes/techbase.lua */
+
+:root {
+  --normal-fg: #CCD5E5;
+  --float-fg: #D6DDEA;
+  --normal-bg: #191d23;
+  --float-bg: #1C2127;
+  --keyword: #A9B9EF;
+  --string: #74BAA8;
+  --search: #E9B872;
+  --number: #B85B53;
+  --error: #F71735;
+  --important: #6A8BE3;
+}
+
+/* Do not show On Screen Controls for HTML presentations */
+div.bespoke-marp-osc {
+    display: none !important;
+  }
+
+section {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  background-color: var(--normal-bg);
+  color: var(--normal-fg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+section.left {
+  align-items: flex-start;
+  padding-left: 2em;
+}
+
+section h1 {
+  color: var(--normal-fg) !important;
+  font-weight: 700;
+  font-size: 2em !important;
+}
+
+section.lead h1 {
+  font-size: 1.8em;
+  margin: 0.5em 0;
+}
+
+section h2 {
+  color: var(--string) !important;
+  font-weight: 700;
+  font-size: 1.4em;
+}
+
+section h3 {
+  color: var(--important) !important;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+section h4, section h5, section h6 {
+  color: var(--keyword) !important;
+  font-weight: 700;
+}
+
+footer {
+  font-size: 1em;
+  color: var(--float-fg);
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+a {
+  color: var(--keyword);
+  text-decoration: underline;
+}
+
+em {
+  color: #FFC0C5;
+}
+
+strong {
+  color: var(--search);
+}
+
+ul {
+  font-size: 0.95em;
+  width: 85%;
+}
+
+li {
+  margin: 0.4em 0;
+}
+
+code {
+  background-color: var(--float-bg);
+  color: var(--search);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.65em;
+}
+
+pre {
+  background-color: var(--float-bg);
+  color: var(--normal-fg);
+  padding: 1em;
+  border-radius: 8px;
+  border-left: 4px solid var(--keyword);
+  width: 95%;          
+  max-height: 55vh;    
+  overflow: auto;      
+  box-sizing: border-box; 
+  align-self: center;  
+}
+
+/* Layout Utilities */
+.split-25-75 {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+}
+
+.split-50-50 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+}
+
+.col-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.col-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

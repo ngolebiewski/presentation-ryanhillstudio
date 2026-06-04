@@ -1,0 +1,261 @@
+https://ryanhill.studio
+https://github.com/ngolebiewski/ryan-hill-studio-v2
+
+SITE/ABOUT
+Nuxt artist portfolio. An anti-Squarespace full-stack single-admin web app that puts the art first. 
+Unique site for unique artwork!
+
+OVERVIEW
+
+TECHNICAL DECISIONS
+1. Argon2 not OAuth: Essentially single user admin app, and Argon hardens through high memory usage, so dissuades attacker (time) and doesn't hurt the server as much. If we had millions of users logging in, the memory use might be unreasonably high for acceptable logging. Argon2 better crypto logically than bcrypt. Memory is getting really expensive with AI now too. Had it been many more users, would have gone for an OAuth sort of workflow, with a provider that makes sense for the client (i.e. Google for artists/non-tech or Github for engineers) and even larger an open source OAuth 2.0 provider like Zitadel or a paid service like Auth0. But, paid services are anathema to this project.
+
+2. Escaped SQL not ORM: Lightweight, no reason to go complex and overcomplicate with schema migrations. I did add more fields (video!) but have Null for backward compatibility. Kind of idiomatic 
+2.5 Postgres, the best! Open source, SQL, Neon. Schema with just what is needed.
+3. Nuxt, wanted to try
+4. Typescript, the regular (safer more linkable than JS, save on JSDOC)
+5. Tailwind, looks good, nice, pros built the mobile responsiveness. 
+5. Netlify as service
+6. DNS, name server to Netlifty tradeoff losing smtp server and 'free' sql databases. 
+7. Netlify Blob over Cloudflare R2 storage (10GB/mo free) for user uploads (plus, keep repo lighter)
+8. Very light app, so serverless with Netlify is fine. Othercases, would be good to separate interests of front end/server. Kind of depends on the intended platform for deployment.
+9. Netlify CI/CD automagically (set up netlify TOML). Keep those Github Actions minutes for projects that need it (in my case, Butler/Docker/multi platform builds of games to Itch.io)
+10. Architecture and structure. Keep minimal. Menus can only be nested 1 deep.
+11. MD not HTML for user text. I HATE HTML WYSIWIG, ever since Wordpress.
+
+
+TECHNICAL ISSUES
+1. Video, YouTube embed, still image, grab while import or upload. Broke with shorts, fixed regex. Issue was format (wide/tall)
+2. Auth! Visit again under AI
+3. Netlify Blobs and Deploy Previews for Pull Requests (run netlify dev flaky with Nuxt, constantly deleting builds and reinstalling .nuxt files for API changes) Essentially once converted to blobs, becomes more difficult to test locally.
+4. All of a sudden, trouble uploading images. Not very helpful dialog 'see logs for failure' message. Discovered an UNTITLED bug. i.e. if two artworks are titles the same the SQL unique constraint is on the slug for the URL, which is based on the title. So that would fail. Fix was to append double digits to the end if a duplicate is found for the slug. BUT, that wasn't the problem. We just needed to clear the JSON token stored in a cookie, since we switched from a deployment preview to the main branch! I had already added in a logout button which clears the JSON token -- so non-tech artist client was able to click it and get going.
+5. Trouble uploading videos! See 1.
+
+CHALLENGES:
+1. NUXT -> Hydration errors with Server side vs Client side code and functions/data.
+
+WINS:
+Making a site that just looks good, and was intuitive enough to use from the artist non-technical admin side for uploading art and adding in text. Also, just paying $30/year for the domain name, rest is 'free', but portable enough when 'free' isn't free anymore.
+
+LEARNED:
+- That Argon2 produces different hashes in different environments where all the other settings and inputs are the same. 
+- First time setting up image uploads from a user perspective - yay for Binary Large Objects BLOBs.
+- Building admin tools, especially proud of drag and drop moving artworks and series around.
+
+AI:
+- I went into this project with a viewpoint of how I wanted it to turn out, and the essential architecture. I wanted to use GitHub CoPilot to the max, by feeding it well structured and bite-sized issues. Claude Haiku 4.5 was the model I chose. Also, running the agent in a GitHub Codespace had the effect of using 1/4 the tokens than if I ran in VSCode on my desktop, so I ended up running there, and then committing the code into the branch and then testing locally on my laptop. Then my free tokens were used up, and I switched to using chat interfaces with copy/paste code online with Gemini, Claude (used up fast!), and ChatGPT. Not very efficient and too much work, but useful. Reviewed diffs carefully.
+- Next time, and what I am doing now, is set up OLLAMA to run on an external device connected with WireGuard/TailScale/VPN. Would be fun to experiment with open source models from Hugging Face.  
+- I'm involved with the Responsible AI group in NYC, not really relevant for doing code, but more in issues with how it is used in a customer facing way in the company. 
+
+In a company with resources, would just use Cursor or Claude Code integrated within VSCode with a model like Qwen Coder or Claude Opus/Sonnet. Keep a good context and Claude.md file. NO CUT AND PASTE!
+
+As an aside, A question I ask is how much I want to learn. Struggle to solution is learning. AI is fast and mostly solid to getting a job done on track.
+
+
+
+
+
+A custom portfolio built with Nuxt 3 and Postgres, designed to replace a legacy WordPress setup with a modern, schema-driven architecture and a minimal admin interface. No SquareSpace lockin. Hooray!
+
+Screenshot of website Screenshot of admin tools
+INSTALL for DEVELOPMENT
+
+    Clone Repo and npm install everything
+    Use Postgres 18 and create your database.
+        CREATE DATABASE ryan_hill_studio; 
+        Copy and paste or run db/schema.sql to create the tables and partly seed the db.
+    Make .env file with: NUXT_DATABASE_URL=postgresql://<your_name>@localhost:5432/ryan_hill_studio JWT_SECRET=
+    Note: run with netlify dev to emulate BLOB storage locally. otherwise npm run dev
+
+Project Goals
+
+- Decoupled Content: Migrate away from WordPress for a succinct, non-bloated json experience.
+
+- Dynamic CMS: Build a lightweight admin interface to manage CV, Bio, Statement, and Gallery content. Use Markdown, no WYSIWYG HTML garbage.
+
+- Relational Assets: Organize work into "Series" (can be nested once) with full descriptions and metadata.
+
+- Zero Cost: Utilize free-tier cloud hosting (Netlify) and serverless databases (Neon). Except for developer time of course.
+
+Tech Stack
+
+- Framework: Nuxt 3 (Vue.js)
+
+- Database: PostgreSQL on Neon
+
+- ORM/Query: Straight up SQL. Only add in Prisma, or Drizzle, if necessary in admin backend build. Update: not needed.
+
+- Styling: Tailwind CSS and BFA skills
+
+- Auth: Streamlined session-based admin and argon for hashing. Argon since high memory cost not an issue for one user. No need for OAuth complexity for same reason,
+
+Implementation Plan
+Phase 1: The Core (Prototype Today)
+
+[ ] Initialize Nuxt 3 project with Tailwind CSS.
+
+[ ] Connect local Postgres 18 instance (already running).
+
+[ ] Create the server/api folder for fetching artworks and series.
+
+[ ] Build a "Basic Gallery" page that pulls directly from the DB.
+
+Phase 2: The Studio Admin
+
+[ ] Implement a /admin route protected by a single login.
+
+[ ] Build "Add Artwork" and "Add Series" forms.
+
+[ ] Create the CV/Bio editor (storing content in a pages table). Use https://github.com/Ionaru/easy-markdown-editor for Markdown editor component.
+
+Phase 3: Deployment
+
+[ ] Push DB to Neon.tech (Postgres Free Tier).
+
+[ ] Deploy Nuxt app to Netlify.
+
+[ ] When completed, point DNS from exisiting Wordpress site hosted on a legacy host to current site that lives on Netlify.
+
+Data Model
+
+    Identity & Access (users)
+
+Stores administrative credentials and global site configuration.
+
+Key Attributes: Unique email, hashed password, and an admin flag.
+
+Purpose: Restricts access to the /admin dashboard and defines the public-facing artist name.
+
+    Taxonomy (series)
+
+A hierarchical structure for grouping artworks into collections, projects, or time periods.
+
+Key Attributes: Title, URL slug, and a parent-child relationship (parent_id).
+
+Purpose: Allows for nested galleries (e.g., "Paintings" > "2024 Landscapes"). Includes an order_index for custom manual sorting.
+
+    Inventory (artworks)
+
+The core content of the application.
+
+Key Attributes: Title, unique slug, image reference (URL), physical dimensions, and description.
+
+Relationships: Each artwork is associated with a specific Series.
+
+Purpose: Tracks all visual pieces, their metadata, and their display order within a series.
+
+Video flag and video URL for embedding YouTube content.
+
+    Content Pages (pages)
+
+A flexible model for non-gallery content like the CV, Bio, or Artist Statement.
+
+Key Attributes: Title, unique slug (e.g., bio), and Markdown-formatted content.
+
+Purpose: Decouples text-heavy pages from the site code, allowing the artist to update their statement or resume via the admin UI without code changes.
+
+Schema ERD
+
+System Architecture
+
+Asset Management
+
+Instead of storing binary images in the database or Git, assets are managed via Netlify Blobs.
+
+Workflow: The Admin UI uploads a file -> Netlify Blob stores the image -> The resulting URL is saved to the artworks table in PostgreSQL.
+
+Content Delivery
+
+Dynamic Routes: Nuxt uses pages/series/[slug].vue to fetch and render artworks based on the database taxonomy.
+
+Server Utilities: A centralized server/utils/db.ts handles the connection pool to ensure efficient database handshakes in a serverless environment.
+
+DEV NOTES
+
+start up Postgres: brew services start postgresql@18
+
+==> Caveats ==> postgresql@18 This formula has created a default database cluster with: initdb --locale=en_US.UTF-8 -E UTF-8 /opt/homebrew/var/postgresql@18
+
+When uninstalling, some dead symlinks are left behind so you may want to run: brew cleanup --prune-prefix
+
+postgresql@18 is keg-only, which means it was not symlinked into /opt/homebrew, because this is an alternate version of another formula.
+
+If you need to have postgresql@18 first in your PATH, run: echo 'export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find postgresql@18 you may need to set: export LDFLAGS="-L/opt/homebrew/opt/postgresql@18/lib" export CPPFLAGS="-I/opt/homebrew/opt/postgresql@18/include"
+
+To start postgresql@18 now and restart at login: brew services start postgresql@18 Or, if you don't want/need a background service you can just run: LC_ALL="en_US.UTF-8" /opt/homebrew/opt/postgresql@18/bin/postgres -D /opt/homebrew/var/postgresql@18
+
+brew services start postgresql@18
+
+Connect to the default database using the full path: bash
+
+/opt/homebrew/opt/postgresql@18/bin/psql postgres
+
+psql -d ryan_hill_studio -c "\dt"
+Nuxt Minimal Starter
+
+Look at the Nuxt documentation to learn more.
+Setup
+
+Make sure to install dependencies:
+
+# npm
+npm install
+
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+
+# bun
+bun install
+
+Development Server
+
+Start the development server on http://localhost:3000:
+
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+
+Production
+
+Build the application for production:
+
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+
+Locally preview production build:
+
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+
+Check out the deployment documentation for more information.
