@@ -13,6 +13,26 @@ style: @import "marp-desert-night-theme.css";
 Pinterest Presentation 📌
 June 12, 2026
 
+
+<!-- ---
+
+<div class="split-25-75">
+<div class="col-left">
+
+# Nick Golebiewski
+
+Pinterest Presentation 📌
+June 12, 2026
+
+</div>
+<div class="col-right">
+
+![w:800](images/rhs-homepage.jpg)
+
+</div>
+</div> -->
+
+
 ---
 <div class="split-50-50">
 <div class="col-left">
@@ -20,8 +40,9 @@ June 12, 2026
 # Ryan Hill Studio
 
 *A Nuxt artist portfolio framework.*
-
-* **A full-stack, single-admin web app that puts the art and artist first.**
+* An alternative to Squarespace with zero subscription fees, no data lock-in, free hosting. All Open-Source!
+* Method: iterate on design and architecture as we add in the live content.
+* **A full-stack, single-admin web app that puts the art first.**
 
 [ryanhill.studio](https://ryanhill.studio)
 
@@ -41,21 +62,37 @@ June 12, 2026
 
 ---
 
+# Overview
+
+1. Tech Stack & Design Decisions
+2. Demo
+3. Technical Challenges
+4. AI Implementation
+5. Key Takeaways
+6. Post Script
+
+---
+
 # 1. Tech Stack
 
 ---
 
 **Frontend:** *Nuxt (Vue)* + *Tailwind CSS* + *TypeScript*
+- SSR for fast loads and SEO optimization
+- Semantic routing for artwork galleries and static pages
 
 **Backend:** *Node.js* + *PostgreSQL* + *Argon2*
+- Unified codebase with Nuxt
+- Lightweight auth (Argon2) for single-admin scope
 
 **Infrastructure:** *Netlify* + *Neon* + *GitHub*
-
-
+- Netlify: CI/CD, Edge Functions, Blobs for image uploads, deploy previews on PRs
+- Neon: Serverless PostgreSQL
+- GitHub: Version control, Issues, and *CoPilot*
 
 ---
 
-# 2. Website
+# 2. Website Demo
 
 ---
 
@@ -101,9 +138,9 @@ Vertical Flow
 
 # Admin Dashboard
 
-1. **Minimalist UI** 
-2. **Intuitive UX:** Drag-and-drop ordering.
-3. **Markdown Native:** Markdown editor for content pages (like the CV) instead of clunky HTML WYSIWYG editors.
+1. **Minimalist UI:** Clean interface with zero visual noise.
+2. **Intuitive UX:** Drag-and-drop structural ordering for art series and individual artworks.
+3. **Markdown Native:** Fast, elegant Markdown editor for content pages (like the CV) instead of clunky HTML WYSIWYG editors.
 
 ---
 
@@ -193,7 +230,7 @@ May 5, 08:06:45 PM: 60392751 INFO   🔐 [SERVER ADMIN AUTH] Processing GET /adm
 ### URL Slug Collisions
 * **The Setup:** Artists frequently title physical pieces *"Untitled"*. 
 * **The DB Conflict:** The schema enforced a unique database constraint on the URL slug generated from the artwork's title. Submitting multiple 'untitled' pieces, for example caused upload failures.
-* **The Pivot:** Wrote a function in the API Route with RegEx to catch duplicates and cleanly append a sequential 2-digit counter to the unique path string.
+* **The Pivot:** Wrote a function with RegEx to catch duplicates and cleanly append a sequential 2-digit counter to the unique path string.
 
 ---
 
@@ -330,8 +367,12 @@ Using **GitHub Copilot Workspace** with agent model **Claude Haiku 4.5**.
 - **Argon2 makes generates different hashes in different environments** 
 * **My trio of goals were met in this project:**
   * 1. Get the feel of Nuxt
-  * 2. Build a cutom, responsive, minimal and easy to use portfolio app for an artist.
+  * 2. Build a responsive, minimal and easy to use portfolio app for an artist that also fits in an artists' budget ($30/yr for domain name, rest on free levels, immediate loads) for an artist.
   * 3. In the end, have a portfolio item to share.
+<!-- * Note: Squarespace is a fine solution for many people and businesses, but as an engineer, this is more fun. -->
+---
+
+# 6. Post Script
 
 ---
 
