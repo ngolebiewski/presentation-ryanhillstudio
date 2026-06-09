@@ -37,9 +37,9 @@ June 12, 2026
 
 
 <!-- Full screen intro of project -->
-![bg cover](images/screenshot_misc_drawings.png)
+<!-- ![bg cover](images/screenshot_misc_drawings.png)
 
----
+--- -->
 
 # 1. Tech Stack
 
@@ -47,7 +47,7 @@ June 12, 2026
 
 **Frontend:** *Nuxt (Vue)* + *Tailwind CSS* + *TypeScript*
 
-**Backend:** *Node.js* + *PostgreSQL* + *Argon2*
+**Backend:** *Node.js* + *PostgreSQL* + *Argon2* + *escaped SQL (not ORM) API* 
 
 **Infrastructure:** *Netlify* + *Neon* + *GitHub*
 
@@ -305,7 +305,7 @@ Using **GitHub Copilot Workspace** with agent model **Claude Haiku 4.5**.
 
 - **The Workflow:** Generated an isolated GitHub Codespace directly from an Issue—automating branch creation and environment setup.
 - **Token Efficiency:** Remarkably efficient compared to desktop VS Code extensions, allowing debugging entirely within the free tier.
-- **The Secret:** Spending time upfront writing highly detailed, structured GitHub Issues paid off massively in AI accuracy.
+- **The Secret:** Spending time upfront writing highly detailed, structured GitHub Issues paid off massively in AI accuracy. [Link: Example Issue for admin backend.](https://github.com/ngolebiewski/ryan-hill-studio-v2/issues/3)
 
 
 ---
@@ -327,7 +327,7 @@ Using **GitHub Copilot Workspace** with agent model **Claude Haiku 4.5**.
 
 ---
 
-- **Argon2 makes generates different hashes in different environments** 
+- **Argon2 generates different hashes in different environments** 
 * **My trio of goals were met in this project:**
   * 1. Get the feel of Nuxt
   * 2. Build a cutom, responsive, minimal and easy to use portfolio app for an artist.

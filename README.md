@@ -9,7 +9,10 @@ Thx!
 
 -Nick
 
-https://ryanhill.studio
+### Production website + source code
+Site: https://ryanhill.studio
+Source Code on Github: 
+
 
 ### CLI commands for making the slideshows (assumed MARP is installed)
 
