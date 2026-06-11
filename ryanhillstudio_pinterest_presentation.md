@@ -19,9 +19,9 @@ June 12, 2026
 
 # Ryan Hill Studio
 
-*A Nuxt artist portfolio framework.*
-
-* **A full-stack, single-admin web app that puts the art and artist first.**
+*An artist portfolio with Nuxt*
+* Problem solved: An artist without a website other than ephemeral media like Instagram. Unique (like the art) alternative to a Squarespace portfolio, with full control of code and data.
+* **Full-stack, single-admin web app that puts the art and artist first.**
 
 [ryanhill.studio](https://ryanhill.studio)
 
